@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ukr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../css/style.css">
+   <title>Завдання 1</title>
+</head>
+
+<body>
+   <main class="page">
+      <section class="block">
+         <div class="block__container">
+            <h1 class="block__title">Обов'язкове завдання 1</h1>
+            <div class="block__body">
+               <a href="../index.html" class="block__link">Повернутися до index.html</a>
+            </div>
+         </div>
+      </section>
+   </main>
+   <script>
+      function getRandomNum(minVal, maxVal) {
+         return minVal + Math.floor(Math.random() * (maxVal - minVal + 1))
+      }
+
+      function generateRandomArray(elemsNumber, minVal, maxVal) {
+         let arr = []
+
+         for (let i = 0; i < elemsNumber; i++) {
+            const randomNum = getRandomNum(minVal, maxVal)
+            arr.push(randomNum)
+         }
+
+         return arr
+      }
+
+      function generateRandomTable(rowsNumber, colsNumber, minVal, maxVal) {
+         let table = []
+
+         for (let i = 0; i < rowsNumber; i++) {
+            const randomRow = generateRandomArray(colsNumber, minVal, maxVal)
+            table.push(randomRow)
+         }
+
+         return table
+      }
+
+      function getRangeArraySum(array, firstRowIndex, lastRowIndex, firstColIndex, lastColIndex) {
+         let sum = 0
+
+         for (let rowIndex = firstRowIndex; rowIndex < lastRowIndex; rowIndex++) {
+            for (let colIndex = firstColIndex; colIndex < lastColIndex; colIndex++) {
+               sum += array[rowIndex][colIndex]
+            }
+         }
+
+         return sum
+      }
+
+      function showTable(table) {
+         let result = ''
+
+         for (let elem of table) {
+            result += `<p>${elem}</p>`
+         }
+
+         return result
+      }
+
+      const array = generateRandomTable(4, 4, 0, 100)
+
+      const halfRows = Math.floor(array.length / 2)
+      const halfCols = Math.floor(array[0].length / 2)
+
+      // 1) Знайти суми елементів у першій чверті
+      const firstQuarterSum = getRangeArraySum(array, 0, halfRows, 0, halfCols)
+      // 2) Знайти суми елементів у другій чверті
+      const secondQuarterSum = getRangeArraySum(array, 0, halfRows, halfCols, array[0].length)
+      // 3) Знайти суми елементів у третій чверті
+      const thirdQuarterSum = getRangeArraySum(array, halfRows, array.length, 0, halfCols)
+      // 4) Знайти суми елементів у четвертій чверті
+      const fourthQuarterSum = getRangeArraySum(array, halfRows, array.length, halfCols, array[0].length)
+      // 5) Суму парних рядків
+      function getTableElemsSum(table, startRowIndex = 0, rowIndexStep = 1, startColIndex = 0, colIndexStep = 1) {
+         let sum = 0
+
+         for (let rowIndex = startRowIndex; rowIndex < table.length; rowIndex += rowIndexStep) {
+            for (let colIndex = startColIndex; colIndex < table[rowIndex].length; colIndex += colIndexStep) {
+               sum += table[rowIndex][colIndex]
+            }
+         }
+
+         return sum
+      }
+
+      const evenRowsSum = getTableElemsSum(array, 0, 2)
+
+      // 6) Суму непарних стовпців
+
+      const oddColssum = getTableElemsSum(array, 0, 1, 1, 2)
+
+      // 7) У парних рядках – непарні стовпці, у непарних – парні.
+
+      let oddSum = 0, evenSum = 0
+
+      for (let rowIndex = 0; rowIndex < array.length; rowIndex++) {
+         for (let colIndex = 0; colIndex < array[rowIndex].length; colIndex++) {
+            if (rowIndex % 2 === 0 && colIndex % 2 !== 0) oddSum += array[rowIndex][colIndex]
+            else if (rowIndex % 2 !== 0 && colIndex % 2 === 0) evenSum += array[rowIndex][colIndex]
+         }
+      }
+
+      const stringArray = showTable(array)
+      document.write(`
+         <div class="text">Початковий масив: ${stringArray}</div>
+         <div class="text">
+            <img src="../img/image01.png" alt="Image">
+            <p>Сума: ${firstQuarterSum}</p>
+         </div>
+         <div class="text">
+            <img src="../img/image02.png" alt="Image">
+            <p>Сума: ${secondQuarterSum}</p>
+         </div>
+         <div class="text">
+            <img src="../img/image03.png" alt="Image">
+            <p>Сума: ${thirdQuarterSum}</p>
+         </div>
+         <div class="text">
+            <img src="../img/image04.png" alt="Image">
+            <p>Сума: ${fourthQuarterSum}</p>
+         </div>
+         <div class="text">5) Суму парних рядків: ${evenRowsSum}</div>
+         <div class="text">6) Суму непарних стовпців: ${oddColssum}</div>
+         <div class="text">7) У парних рядках – непарні стовпці: ${oddSum}, у непарних – парні: ${evenSum}</div>
+      `)
+   </script>
+</body>
+
+</html>

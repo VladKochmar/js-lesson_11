@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ukr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../css/style.css">
+   <title>Завдання 2</title>
+</head>
+
+<body>
+   <main class="page">
+      <section class="block">
+         <div class="block__container">
+            <h1 class="block__title">Додаткове завдання 2</h1>
+            <div class="block__body">
+               <a href="../index.html" class="block__link">Повернутися до index.html</a>
+            </div>
+         </div>
+      </section>
+   </main>
+   <script>
+      function getRandomNum(minVal, maxVal) {
+         return minVal + Math.floor(Math.random() * (maxVal - minVal + 1))
+      }
+
+      function generateGameField(fieldHeight, fieldWidth, shipsNumber) {
+         let field = []
+
+         for (let i = 0; i < fieldHeight; i++) {
+            const arr = new Array(fieldWidth).fill(0)
+            field.push(arr)
+         }
+
+         return addShips(field, shipsNumber)
+      }
+
+      function addShips(field, shipsNumber) {
+
+         do {
+            const rowIndex = getRandomNum(0, 5)
+            const colIndex = getRandomNum(0, 5)
+
+            if (field[rowIndex][colIndex] !== 1) {
+               field[rowIndex][colIndex] = 1
+               shipsNumber--
+            }
+         } while (0 < shipsNumber)
+
+         return field
+      }
+
+      function playGame(field, shipsNumber, ammunition) {
+         do {
+            const rowIndex = parseInt(prompt('Введіть номер рядка (0 - 5)'))
+            const colIndex = parseInt(prompt('Введіть номер стовпця (0 - 5)'))
+            ammunition--
+            if (field[rowIndex][colIndex] === 1) {
+               field[rowIndex][colIndex] = 0
+               alert(`Ви попали! Залишилось ${SHIPS_NUMBER} кораблів та ${ammunition} пострілів`)
+            }
+            else
+               alert(`Ви не влучили. Залишилось ${SHIPS_NUMBER} кораблів та ${ammunition} пострілів`)
+         } while (ammunition > 0 && shipsNumber > 0)
+      }
+
+      const FIELD_WIDTH = 6,
+         FIELD_HEIGHT = 6,
+         SHIPS_NUMBER = 5,
+         AMMUNITION = 10
+
+      const gameField = generateGameField(FIELD_HEIGHT, FIELD_WIDTH, SHIPS_NUMBER)
+
+      console.log(gameField[0])
+      console.log(gameField[1])
+      console.log(gameField[2])
+      console.log(gameField[3])
+      console.log(gameField[4])
+      console.log(gameField[5])
+
+      playGame(gameField, SHIPS_NUMBER, AMMUNITION)
+
+      document.write(`
+         <div class="text">${gameField[0]}</div>
+         <div class="text">${gameField[1]}</div>
+         <div class="text">${gameField[2]}</div>
+         <div class="text">${gameField[3]}</div>
+         <div class="text">${gameField[4]}</div>
+         <div class="text">${gameField[5]}</div>
+      `)
+   </script>
+</body>
+
+</html>
