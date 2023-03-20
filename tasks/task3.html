@@ -6,14 +6,14 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="../css/style.css">
-   <title>Завдання 2</title>
+   <title>Завдання 3</title>
 </head>
 
 <body>
    <main class="page">
       <section class="block">
          <div class="block__container">
-            <h1 class="block__title">Додаткове завдання 2</h1>
+            <h1 class="block__title">Додаткове завдання 3</h1>
             <div class="block__body">
                <a href="../index.html" class="block__link">Повернутися до index.html</a>
             </div>
@@ -58,10 +58,11 @@
             ammunition--
             if (field[rowIndex][colIndex] === 1) {
                field[rowIndex][colIndex] = 0
-               alert(`Ви попали! Залишилось ${SHIPS_NUMBER} кораблів та ${ammunition} пострілів`)
+               shipsNumber--
+               alert(`Ви попали! Залишилось ${shipsNumber} кораблів та ${ammunition} пострілів`)
             }
             else
-               alert(`Ви не влучили. Залишилось ${SHIPS_NUMBER} кораблів та ${ammunition} пострілів`)
+               alert(`Ви не влучили. Залишилось ${shipsNumber} кораблів та ${ammunition} пострілів`)
          } while (ammunition > 0 && shipsNumber > 0)
       }
 
