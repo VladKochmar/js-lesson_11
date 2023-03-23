@@ -176,9 +176,9 @@
       // Копія створена щоб не заважати відображенню завдання №9
       const decreasingMaxProfitTable = shopsProfitTable.map(subarray => subarray.slice())
       decreasingMaxProfitTable.sort((arr1, arr2) => {
-         // Варіант з Math.max.apply()
-         const maxNumber1 = Math.max.apply(null, arr1)
-         const maxNumber2 = Math.max.apply(null, arr2)
+         // Варіант з Math.max()
+         const maxNumber1 = Math.max(...arr1)
+         const maxNumber2 = Math.max(...arr2)
 
          // Варіант з reduce
          // const maxNumber1 = arr1.reduce((maxElem, elem) => elem > maxElem ? elem : maxElem)
